@@ -13,7 +13,8 @@ class BundleController extends Controller
             'name' => 'required|string|unique:bundles,name',
             'start_time' => 'required',
             'duration' => 'required',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'value' => 'integer'
         ]);
 
         $bundle = new Bundle();
@@ -21,6 +22,7 @@ class BundleController extends Controller
         $bundle->start_time = $validated['start_time'];
         $bundle->duration = $validated['duration'];
         $bundle->description = $validated['description'] ?? '';
+        $bundle->value = $validated['value'] ?? 0;
 
         try {
             $bundle->save();
@@ -59,7 +61,8 @@ class BundleController extends Controller
             'name' => 'required|string|unique:bundles,name,' . $id,
             'description' => 'nullable|string',
             'start_time' => 'required',
-            'duration' => 'required'
+            'duration' => 'required',
+            'value' => 'integer'
         ]);
 
         try {
@@ -68,6 +71,7 @@ class BundleController extends Controller
             $bundle->duration = $validated['duration'];
             $bundle->start_time = $validated['start_time'];
             $bundle->description = $validated['description'] ?? '';
+            $bundle->value = $validated['value'] ?? 0;
             $bundle->category_id = $validated['category_id'] ?? $bundle->category_id;
             $bundle->save();
             return response()->json($bundle);

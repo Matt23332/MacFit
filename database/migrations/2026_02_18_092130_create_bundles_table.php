@@ -17,7 +17,7 @@ return new class extends Migration
             $table->dateTime('start_time');
             $table->time('duration');
             $table->text('description', 1000);
-
+            $table->integer('value');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
 

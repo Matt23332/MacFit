@@ -27,5 +27,10 @@ class RoleSeeder extends Seeder
             'name' => 'Staff',
             'description' => 'This is the staff role.'
         ]);
+
+        Role::create([
+            'name' => 'Trainer',
+            'description' => 'This is the trainer role.'
+        ]);
     }
 }

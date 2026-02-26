@@ -22,10 +22,10 @@ Route::post('/email/resend', [ResendEmailVerificationController::class, 'resend'
     ->name('verification.resend')
     ->middleware('throttle:6,1');
 
-
 // Protected routes - Require authentication
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/userInfo', [AuthController::class, 'userInfo']);
 
     // Role routes
     Route::post('/saveRole', [RoleController::class, 'createRole']);
@@ -68,4 +68,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/getSubscription/{id}', [SubscriptionController::class, 'readSubscription']);
     Route::put('updateSubscription/{id}', [SubscriptionController::class, 'updateSubscription']);
     Route::delete('deleteSubscription/{id}', [SubscriptionController::class, 'deleteSubscription']);
+    Route::get('/userCharges', [SubscriptionController::class, 'getUserCharges']);
 });

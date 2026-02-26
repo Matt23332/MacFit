@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bundle extends Model
 {
-    protected $fillable = ['name', 'start_time', 'duration','description', 'category_id'];
+    protected $fillable = ['name', 'start_time', 'duration','description', 'value', 'category_id'];
 }
