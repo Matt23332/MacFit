@@ -44,20 +44,23 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-        'is_active' => 'boolean'
+        'password' => 'hashed'
     ];
 
     public function role() {
         return $this->belongsTo(Role::class);
     }
 
-    public function abilities() {
-        return [
-            'Admin' => $this->role_id === 1,
-            'Staff' => $this->role_id === 2,
-            'Trainer' => $this->role_id === 3,
-            'User' => $this->role_id === 4
-        ];
+    // public function abilities() {
+    //     return [
+    //         'Admin' => $this->role_id === 1,
+    //         'Staff' => $this->role_id === 2,
+    //         'Trainer' => $this->role_id === 3,
+    //         'User' => $this->role_id === 4
+    //     ];
+    // }
+
+    public function isAdmin() {
+        return $this->role_id === 1;
     }
 }

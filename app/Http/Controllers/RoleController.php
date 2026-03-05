@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    public function __construct() {
+        $this->authorizeResource(Role::class, 'role');
+    }
     public function createRole(Request $request) {
         $validated = $request->validate([
             'name' => 'required|string|unique:roles,name',
@@ -26,6 +29,8 @@ class RoleController extends Controller
     }
 
     public function readAll() {
+        $this->authorize('viewAny', Role::class);
+        
         try {
             $roles = Role::all();
             return response()->json($roles);
@@ -37,6 +42,8 @@ class RoleController extends Controller
     public function readRole($id) {
         try {
             $role = Role::findOrFail($id);
+            $this->authorize('view', $role);
+
             return response()->json($role);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to retrieve role', 'message' => $e->getMessage()], 500);
@@ -44,6 +51,9 @@ class RoleController extends Controller
     }
 
     public function updateRole(Request $request, $id) {
+        $role = Role::findOrFail($id);
+        $this->authorize('update', $role);
+
         $validated = $request->validate([
             'name' => 'required|string|unique:roles,name,' . $id,
             'description' => 'nullable|string'
@@ -64,6 +74,8 @@ class RoleController extends Controller
     public function deleteRole($id) {
         try {
             $role = Role::findOrFail($id);
+            $this->authorize('delete', $role);
+
             $role->delete();
             return response()->json(['message' => 'Role deleted successfully']);
         } catch (\Exception $e) {
