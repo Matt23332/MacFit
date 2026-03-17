@@ -22,9 +22,15 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_active',
+        'confirm_password',
+        'gender',
+        'dob',
+        'phone',
+        'gym_location',
+
         'user_image',
-        'role_id'
+        'is_active',
+        'role_id',
     ];
 
     /**
@@ -51,14 +57,14 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    // public function abilities() {
-    //     return [
-    //         'Admin' => $this->role_id === 1,
-    //         'Staff' => $this->role_id === 2,
-    //         'Trainer' => $this->role_id === 3,
-    //         'User' => $this->role_id === 4
-    //     ];
-    // }
+    public function abilities() {
+        return [
+            'Admin' => $this->role_id === 1,
+            'Staff' => $this->role_id === 2,
+            'Trainer' => $this->role_id === 3,
+            'User' => $this->role_id === 4
+        ];
+    }
 
     public function isAdmin() {
         return $this->role_id === 1;
