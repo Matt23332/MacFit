@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GymController;
@@ -69,4 +70,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('updateSubscription/{id}', [SubscriptionController::class, 'updateSubscription']);
     Route::delete('deleteSubscription/{id}', [SubscriptionController::class, 'deleteSubscription']);
     Route::get('/userCharges', [SubscriptionController::class, 'getUserCharges']);
+
+    //User resource
+    Route::resource('users', UserController::class);
 });
